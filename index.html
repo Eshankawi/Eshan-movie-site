@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eshan Movie Site</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    #iframe-section iframe {
+      width: 100%;
+      height: calc(100vh - 60px);
+    }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+
+  <!-- Welcome Section -->
+  <div id="welcome-section" class="flex items-center justify-center min-h-screen p-4">
+    <div class="text-center">
+      <h1 class="text-4xl font-extrabold mb-4">Welcome to Eshan Movie Site</h1>
+      <p class="text-lg max-w-xl mx-auto">Enjoy the best movies and series with a clean and stylish interface.</p>
+      <button 
+        onclick="showIframe()"
+        class="mt-6 px-6 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
+      >
+        Explore Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Iframe Section (Hidden Initially) -->
+  <div id="iframe-section" class="hidden">
+    <header class="bg-gray-900 text-center py-4 text-xl font-bold shadow-md">
+      Eshan©CineSubz Movie Site
+    </header>
+    <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
+  </div>
+
+  <script>
+    function showIframe() {
+      document.getElementById("welcome-section").style.display = "none";
+      document.getElementById("iframe-section").style.display = "block";
+    }
+  </script>
+
+</body>
+  </html>
