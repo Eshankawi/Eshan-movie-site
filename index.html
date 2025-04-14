@@ -8,7 +8,7 @@
   <style>
     #iframe-section iframe {
       width: 100%;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 112px); /* 40px + 72px header */
     }
 
     .popup-bg {
@@ -42,13 +42,19 @@
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
-    <header class="bg-gray-900 text-center relative py-4 px-4 flex items-center justify-center">
-      <button onclick="goBack()" 
-              class="absolute left-4 text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-700">
+    <!-- Back Button Top Bar -->
+    <div class="bg-gray-900 py-2 px-4">
+      <button onclick="goBack()" class="text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-700">
         ← Back
       </button>
-      <h1 class="text-base sm:text-xl font-bold w-full text-center">Eshan©CineSubz Movie Site</h1>
+    </div>
+
+    <!-- Header Title -->
+    <header class="bg-gray-800 text-center py-4">
+      <h1 class="text-xl font-bold">Eshan©CineSubz Movie Site</h1>
     </header>
+
+    <!-- Movie Frame -->
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
