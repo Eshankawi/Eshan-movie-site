@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Eshan Movie Site</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
   <style>
     #iframe-section iframe {
       width: 100%;
-      height: calc(100vh - 150px); /* Adjusted for header + nav */
+      height: calc(100vh - 150px);
     }
 
     .popup-bg {
@@ -22,50 +23,86 @@
     .hidden {
       display: none !important;
     }
+
+    body {
+      background: #000;
+      font-family: sans-serif;
+    }
+
+    .glow-box {
+      border: 2px solid transparent;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      padding: 2px;
+    }
+
+    .glow-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, #00f0ff, #ff00f7, #00ff6a, #ffe600, #ff0055);
+      animation: rotate 4s linear infinite;
+      z-index: 0;
+      filter: blur(20px);
+    }
+
+    .glow-box > .inner {
+      position: relative;
+      background: #111;
+      border-radius: 16px;
+      z-index: 1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen relative">
 
-  <!-- Welcome Section -->
+  <!-- Welcome Section With Glow -->
   <div id="welcome-section" class="flex flex-col items-center justify-center min-h-screen p-4 fade">
-    <div class="text-center">
-      <h1 class="text-4xl font-extrabold mb-4">Welcome to Eshan Movie Site</h1>
-      <p class="text-lg max-w-xl mx-auto">Watch movies and series in high quality, free of ads!</p>
-      <button 
-        onclick="showIframe()"
-        class="mt-6 px-6 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
-      >
-        Explore Now
-      </button>
-    </div>
+    <div class="glow-box max-w-md w-full">
+      <div class="inner text-white p-6 text-center space-y-4">
 
-    <!-- User Info Section -->
-    <div id="user-info" class="mt-8 bg-gray-900 p-4 rounded-lg text-left max-w-md mx-auto">
-      <h2 class="text-lg font-bold mb-2">User Information</h2>
-      <div id="ip-address">Loading IP address...</div>
-      <div id="time"></div>
-      <div id="date"></div>
-      <div id="battery"></div>
+        <h1 class="text-4xl font-extrabold">Welcome to Eshan Movie Site</h1>
+        <p class="text-lg">Watch movies and series in high quality, free of ads!</p>
+
+        <button 
+          onclick="showIframe()"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded shadow">
+          Explore Now
+        </button>
+
+        <div id="user-info" class="text-left mt-6">
+          <h2 class="text-lg font-bold mb-2">User Information</h2>
+          <div id="ip-address">Loading IP address...</div>
+          <div id="time">Time:</div>
+          <div id="date">Date:</div>
+          <div id="battery">Battery:</div>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
-    <!-- Header -->
     <header class="bg-gray-900 py-4 text-center text-xl font-bold">
       Eshan©CineSubz Movie Site
     </header>
 
-    <!-- Navigation Row -->
     <div class="bg-gray-800 px-4 py-2 flex items-center justify-between flex-wrap gap-2">
-      <!-- Back Button (left) -->
       <div>
         <button onclick="goBack()" class="bg-red-600 px-4 py-1 rounded text-sm hover:bg-red-700">
           ← Back to Home
         </button>
       </div>
-
-      <!-- Movie Site Links (right) -->
       <div class="flex flex-wrap gap-2 justify-end">
         <a href="https://eshan-movie-site.vercel.app/" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
           CineSubz
@@ -82,7 +119,6 @@
       </div>
     </div>
 
-    <!-- Iframe -->
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
@@ -135,7 +171,7 @@
         document.getElementById('ip-address').textContent = `IP Address: ${data.ip}`;
       })
       .catch(error => {
-        console.error('Error fetching IP address:', error);
+        document.getElementById('ip-address').textContent = 'IP Address: N/A';
       });
 
     // Time & Date
@@ -157,9 +193,15 @@
     function updateBatteryInfo() {
       if (navigator.getBattery) {
         navigator.getBattery().then(function(battery) {
-          const batteryLevel = Math.round(battery.level * 100);
-          const chargingStatus = battery.charging ? 'Charging' : 'Not Charging';
-          document.getElementById('battery').textContent = `Battery: ${batteryLevel}% (${chargingStatus})`;
+          function displayBatteryStatus() {
+            const batteryLevel = Math.round(battery.level * 100);
+            const chargingStatus = battery.charging ? 'Charging' : 'Not Charging';
+            document.getElementById('battery').textContent = `Battery: ${batteryLevel}% (${chargingStatus})`;
+          }
+
+          displayBatteryStatus();
+          battery.addEventListener('chargingchange', displayBatteryStatus);
+          battery.addEventListener('levelchange', displayBatteryStatus);
         });
       } else {
         document.getElementById('battery').textContent = 'Battery: N/A';
