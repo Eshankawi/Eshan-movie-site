@@ -8,7 +8,7 @@
   <style>
     #iframe-section iframe {
       width: 100%;
-      height: calc(100vh - 110px); /* header + button height */
+      height: calc(100vh - 150px); /* Adjusted for header + nav */
     }
 
     .popup-bg {
@@ -39,7 +39,7 @@
       </button>
     </div>
 
-    <!-- User Info Section (Shown only in Welcome Section) -->
+    <!-- User Info Section -->
     <div id="user-info" class="mt-8 bg-gray-900 p-4 rounded-lg text-left max-w-md mx-auto">
       <h2 class="text-lg font-bold mb-2">User Information</h2>
       <div id="ip-address">Loading IP address...</div>
@@ -51,17 +51,38 @@
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
+    <!-- Header -->
     <header class="bg-gray-900 py-4 text-center text-xl font-bold">
       Eshan©CineSubz Movie Site
     </header>
 
-    <!-- Back Button under header -->
-    <div class="bg-gray-800 px-4 py-2">
-      <button onclick="goBack()" class="bg-red-600 px-4 py-1 rounded text-sm hover:bg-red-700">
-        ← Back to Home
-      </button>
+    <!-- Navigation Row -->
+    <div class="bg-gray-800 px-4 py-2 flex items-center justify-between flex-wrap gap-2">
+      <!-- Back Button (left) -->
+      <div>
+        <button onclick="goBack()" class="bg-red-600 px-4 py-1 rounded text-sm hover:bg-red-700">
+          ← Back to Home
+        </button>
+      </div>
+
+      <!-- Movie Site Links (right) -->
+      <div class="flex flex-wrap gap-2 justify-end">
+        <a href="https://eshan-movie-site.vercel.app/" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+          CineSubz
+        </a>
+        <a href="https://sinhalasub.lk/" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded text-sm">
+          SinhalaSub
+        </a>
+        <a href="https://pirate.lk/" target="_blank" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+          Pirate
+        </a>
+        <a href="https://cineru.lk/" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+          Cineru
+        </a>
+      </div>
     </div>
 
+    <!-- Iframe -->
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
