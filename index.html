@@ -22,21 +22,6 @@
     .hidden {
       display: none !important;
     }
-
-    /* Mobile view only (max-width: 768px) */
-    @media (max-width: 768px) {
-      header {
-        padding-top: 2.5rem;
-        padding-bottom: 1rem;
-        font-size: 1rem; /* smaller title */
-      }
-
-      header button {
-        font-size: 0.75rem; /* smaller back text */
-        padding: 0.25rem 0.5rem;
-        top: 0.75rem;
-      }
-    }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen relative">
@@ -57,9 +42,12 @@
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
-    <header class="bg-gray-900 py-4 text-center relative text-xl font-bold">
-      <button onclick="goBack()" class="absolute left-4 top-2 bg-red-600 px-3 py-1 rounded">← Back</button>
-      Eshan©CineSubz Movie Site
+    <header class="bg-gray-900 text-center relative py-4 px-4 flex items-center justify-center">
+      <button onclick="goBack()" 
+              class="absolute left-4 text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-700">
+        ← Back
+      </button>
+      <h1 class="text-base sm:text-xl font-bold w-full text-center">Eshan©CineSubz Movie Site</h1>
     </header>
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
