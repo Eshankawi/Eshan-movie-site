@@ -22,6 +22,20 @@
     .hidden {
       display: none !important;
     }
+
+    @media (max-width: 768px) {
+      header button {
+        font-size: 0.875rem; /* text-sm */
+        padding: 0.25rem 0.5rem; /* px-2 py-1 */
+        top: 0.5rem; /* adjust top */
+      }
+
+      header {
+        font-size: 1rem; /* text-base */
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen relative">
