@@ -10,15 +10,27 @@
       width: 100%;
       height: calc(100vh - 60px);
     }
+
+    .popup-bg {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .fade {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen">
+<body class="bg-black text-white min-h-screen relative">
 
   <!-- Welcome Section -->
-  <div id="welcome-section" class="flex items-center justify-center min-h-screen p-4">
+  <div id="welcome-section" class="flex items-center justify-center min-h-screen p-4 fade">
     <div class="text-center">
       <h1 class="text-4xl font-extrabold mb-4">Welcome to Eshan Movie Site</h1>
-      <p class="text-lg max-w-xl mx-auto">Enjoy the best movies and series with a clean and stylish interface.</p>
+      <p class="text-lg max-w-xl mx-auto">Watch movies and series in high quality, free of ads!</p>
       <button 
         onclick="showIframe()"
         class="mt-6 px-6 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
@@ -28,20 +40,55 @@
     </div>
   </div>
 
-  <!-- Iframe Section (Hidden Initially) -->
-  <div id="iframe-section" class="hidden">
-    <header class="bg-gray-900 text-center py-4 text-xl font-bold shadow-md">
+  <!-- Iframe Section -->
+  <div id="iframe-section" class="hidden fade">
+    <header class="bg-gray-900 py-4 text-center relative text-xl font-bold">
+      <button onclick="goBack()" class="absolute left-4 top-2 bg-red-600 px-3 py-1 rounded">← Back</button>
       Eshan©CineSubz Movie Site
     </header>
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
+  <!-- WhatsApp Floating Button -->
+  <button onclick="togglePopup()" 
+          class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full shadow-lg z-50">
+    Chat
+  </button>
+
+  <!-- WhatsApp Popup -->
+  <div id="popup" class="hidden fixed inset-0 flex items-center justify-center popup-bg z-50">
+    <div class="bg-white text-black p-6 rounded-lg shadow-lg w-80 text-center">
+      <h2 class="text-xl font-bold mb-4">Select WhatsApp Number</h2>
+      <button onclick="openWhatsApp('94789119916')" class="block w-full bg-green-500 text-white py-2 rounded my-2 hover:bg-green-600">
+        +94 78 911 9916
+      </button>
+      <button onclick="openWhatsApp('94758178340')" class="block w-full bg-green-500 text-white py-2 rounded my-2 hover:bg-green-600">
+        +94 75 817 8340
+      </button>
+      <button onclick="togglePopup()" class="text-sm text-red-500 mt-3 hover:underline">Cancel</button>
+    </div>
+  </div>
+
   <script>
     function showIframe() {
-      document.getElementById("welcome-section").style.display = "none";
-      document.getElementById("iframe-section").style.display = "block";
+      document.getElementById("welcome-section").classList.add("hidden");
+      document.getElementById("iframe-section").classList.remove("hidden");
+    }
+
+    function goBack() {
+      document.getElementById("iframe-section").classList.add("hidden");
+      document.getElementById("welcome-section").classList.remove("hidden");
+    }
+
+    function togglePopup() {
+      document.getElementById("popup").classList.toggle("hidden");
+    }
+
+    function openWhatsApp(number) {
+      window.open(`https://wa.me/${number}`, "_blank");
+      togglePopup();
     }
   </script>
 
 </body>
-  </html>
+</html>
