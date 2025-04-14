@@ -23,17 +23,18 @@
       display: none !important;
     }
 
+    /* Mobile view only (max-width: 768px) */
     @media (max-width: 768px) {
-      header button {
-        font-size: 0.875rem; /* text-sm */
-        padding: 0.25rem 0.5rem; /* px-2 py-1 */
-        top: 0.5rem; /* adjust top */
-      }
-
       header {
-        font-size: 1rem; /* text-base */
         padding-top: 2.5rem;
         padding-bottom: 1rem;
+        font-size: 1rem; /* smaller title */
+      }
+
+      header button {
+        font-size: 0.75rem; /* smaller back text */
+        padding: 0.25rem 0.5rem;
+        top: 0.75rem;
       }
     }
   </style>
