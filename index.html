@@ -8,7 +8,7 @@
   <style>
     #iframe-section iframe {
       width: 100%;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 110px); /* header + button height */
     }
 
     .popup-bg {
@@ -51,10 +51,17 @@
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
-    <header class="bg-gray-900 py-4 px-4 flex items-center justify-center relative text-xl font-bold text-center">
-      <button onclick="goBack()" class="absolute left-4 bg-red-600 px-3 py-1 rounded text-sm">← Back</button>
-      <span class="mx-auto">Eshan©CineSubz Movie Site</span>
+    <header class="bg-gray-900 py-4 text-center text-xl font-bold">
+      Eshan©CineSubz Movie Site
     </header>
+
+    <!-- Back Button under header -->
+    <div class="bg-gray-800 px-4 py-2">
+      <button onclick="goBack()" class="bg-red-600 px-4 py-1 rounded text-sm hover:bg-red-700">
+        ← Back to Home
+      </button>
+    </div>
+
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
@@ -82,13 +89,13 @@
     function showIframe() {
       document.getElementById("welcome-section").classList.add("hidden");
       document.getElementById("iframe-section").classList.remove("hidden");
-      document.getElementById("user-info").classList.add("hidden"); // Hide user info
+      document.getElementById("user-info").classList.add("hidden");
     }
 
     function goBack() {
       document.getElementById("iframe-section").classList.add("hidden");
       document.getElementById("welcome-section").classList.remove("hidden");
-      document.getElementById("user-info").classList.remove("hidden"); // Show user info
+      document.getElementById("user-info").classList.remove("hidden");
     }
 
     function togglePopup() {
@@ -100,7 +107,7 @@
       togglePopup();
     }
 
-    // Fetch and display IP Address
+    // IP Address
     fetch('https://ipinfo.io/json?token=e7dda0961e4af2')
       .then(response => response.json())
       .then(data => {
@@ -117,7 +124,6 @@
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
       const timeString = `${hours}:${minutes}:${seconds}`;
-
       const dateString = now.toLocaleDateString();
 
       document.getElementById('time').textContent = `Time: ${timeString}`;
