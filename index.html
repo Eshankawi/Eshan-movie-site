@@ -8,7 +8,7 @@
   <style>
     #iframe-section iframe {
       width: 100%;
-      height: calc(100vh - 112px); /* 40px + 72px header */
+      height: calc(100vh - 60px);
     }
 
     .popup-bg {
@@ -27,7 +27,7 @@
 <body class="bg-black text-white min-h-screen relative">
 
   <!-- Welcome Section -->
-  <div id="welcome-section" class="flex items-center justify-center min-h-screen p-4 fade">
+  <div id="welcome-section" class="flex flex-col items-center justify-center min-h-screen p-4 fade">
     <div class="text-center">
       <h1 class="text-4xl font-extrabold mb-4">Welcome to Eshan Movie Site</h1>
       <p class="text-lg max-w-xl mx-auto">Watch movies and series in high quality, free of ads!</p>
@@ -38,23 +38,23 @@
         Explore Now
       </button>
     </div>
+
+    <!-- User Info Section (Shown only in Welcome Section) -->
+    <div id="user-info" class="mt-8 bg-gray-900 p-4 rounded-lg text-left max-w-md mx-auto">
+      <h2 class="text-lg font-bold mb-2">User Information</h2>
+      <div id="ip-address">Loading IP address...</div>
+      <div id="time"></div>
+      <div id="date"></div>
+      <div id="battery"></div>
+    </div>
   </div>
 
   <!-- Iframe Section -->
   <div id="iframe-section" class="hidden fade">
-    <!-- Back Button Top Bar -->
-    <div class="bg-gray-900 py-2 px-4">
-      <button onclick="goBack()" class="text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-700">
-        ← Back
-      </button>
-    </div>
-
-    <!-- Header Title -->
-    <header class="bg-gray-800 text-center py-4">
-      <h1 class="text-xl font-bold">Eshan©CineSubz Movie Site</h1>
+    <header class="bg-gray-900 py-4 text-center relative text-xl font-bold">
+      <button onclick="goBack()" class="absolute left-4 top-2 bg-red-600 px-3 py-1 rounded">← Back</button>
+      Eshan©CineSubz Movie Site
     </header>
-
-    <!-- Movie Frame -->
     <iframe src="https://cinesubz.co/movies/" frameborder="0"></iframe>
   </div>
 
@@ -82,11 +82,13 @@
     function showIframe() {
       document.getElementById("welcome-section").classList.add("hidden");
       document.getElementById("iframe-section").classList.remove("hidden");
+      document.getElementById("user-info").classList.add("hidden"); // Hide user info
     }
 
     function goBack() {
       document.getElementById("iframe-section").classList.add("hidden");
       document.getElementById("welcome-section").classList.remove("hidden");
+      document.getElementById("user-info").classList.remove("hidden"); // Show user info
     }
 
     function togglePopup() {
@@ -97,6 +99,47 @@
       window.open(`https://wa.me/${number}`, "_blank");
       togglePopup();
     }
+
+    // Fetch and display IP Address
+    fetch('https://ipinfo.io/json?token=e7dda0961e4af2')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip-address').textContent = `IP Address: ${data.ip}`;
+      })
+      .catch(error => {
+        console.error('Error fetching IP address:', error);
+      });
+
+    // Time & Date
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+
+      const dateString = now.toLocaleDateString();
+
+      document.getElementById('time').textContent = `Time: ${timeString}`;
+      document.getElementById('date').textContent = `Date: ${dateString}`;
+    }
+
+    setInterval(updateTime, 1000);
+
+    // Battery Info
+    function updateBatteryInfo() {
+      if (navigator.getBattery) {
+        navigator.getBattery().then(function(battery) {
+          const batteryLevel = Math.round(battery.level * 100);
+          const chargingStatus = battery.charging ? 'Charging' : 'Not Charging';
+          document.getElementById('battery').textContent = `Battery: ${batteryLevel}% (${chargingStatus})`;
+        });
+      } else {
+        document.getElementById('battery').textContent = 'Battery: N/A';
+      }
+    }
+
+    updateBatteryInfo();
   </script>
 
 </body>
